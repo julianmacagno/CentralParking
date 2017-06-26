@@ -20,26 +20,6 @@ DataManager::DataManager()
 
 DataManager::~DataManager()
 {
-
-}
-
-void DataManager::getDestino(QString end)
-{
-    QString destino = "&destination=";
-    destino += end;
-    destino += "&key=AIzaSyAIUs8bUuj4nvBIMi2onO3qkrQsSnML8mk";
-
-    managerDestino->get(QNetworkRequest(QUrl(destino)));
-}
-
-void DataManager::getOrigen(QString start)
-{
-
-    QString origen = "https://maps.googleapis.com/maps/api/directions/xml?origin=";
-    origen += start;
-    origen += "&key=AIzaSyAIUs8bUuj4nvBIMi2onO3qkrQsSnML8mk";
-
-    managerOrigen->get(QNetworkRequest(QUrl(origen)));
 }
 
 void DataManager::getCoordinates(QString street)
@@ -88,10 +68,10 @@ void DataManager::getMap(QList<QString> coords)
 
 void DataManager::slot_getCoordinates(QNetworkReply *reply)
 {
+    QList<QString> list;
     QJsonDocument a = QJsonDocument::fromJson(reply->readAll());
     QJsonObject b = a.object().value("results").toArray().first().toObject();
-    QJsonValue e = b.take("geometry").toObject().take("location");
-    QList<QString> list;
+    QJsonValue e = b.value("geometry").toObject().value("location");
     lat = e.toObject().take("lat").toDouble();
     list.append(QString::number(lat));
     lng = e.toObject().take("lng").toDouble();
@@ -183,52 +163,4 @@ void DataManager::slot_getMap(QNetworkReply *reply)
     QImage imagen = QImage::fromData(reply->readAll());
 
     emit receivedMap(imagen);
-}
-
-void DataManager::slot_getTiempo(QNetworkReply *reply)
-{
-
-}
-
-void DataManager::slot_getDistancia(QNetworkReply *reply)
-{
-
-}
-
-void DataManager::slot_getOrigen(QNetworkReply *reply)
-{
-
-    QByteArray ba = reply->readAll();
-    QString origen;
-
-    if(ba.indexOf("<start_location>") && ba.indexOf("</start_location>") )
-
-    origen = ba.mid(871,93);
-
-    origen.indexOf("<lat>");
-    origen.indexOf("</lat>");
-    QString Olat = origen.mid(27,10);// guardo en un string la latitud origen
-
-    origen.indexOf("<lng>");
-    origen.indexOf("</lng>");
-    QString Olng = origen.mid(54,11);
-
-    emit signalOrigen(Olat,Olng);
-}
-
-void DataManager::slot_getDestino(QNetworkReply *reply)
-{
-    QByteArray ba = reply->readAll();
-    QString destino;
-
-    destino = ba.mid(969,89);
-    
-    destino.indexOf("<lat>");
-    destino.indexOf("</lat>");
-    QString Dlat = destino.mid(25,10);//guardo en un string la latitud destino
-
-    destino.indexOf("<lng>");
-    destino.indexOf("</lng>");
-    QString Dlng = destino.mid(52,11);//guardo en un string la longitud destino
-    emit signalDestino(Dlat,Dlng);
 }

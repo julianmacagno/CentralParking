@@ -11,12 +11,8 @@
 #include<QJsonObject>
 #include<QJsonValue>
 #include<QJsonArray>
-#include<QXmlStreamReader>
-#include<QTextStream>
-#include<QtXml/QDomDocument>
-#include<QtXml/QDomElement>
-#include<QDataStream>
 #include<QImage>
+#include<QWidget>
 
 class DataManager : public QObject
 {
@@ -29,11 +25,6 @@ public:
     struct Sitio {
         QString lat, lng, nombre, rating;
     };
-
-    //void getTiempo();
-    //void getDistancia();
-    void getOrigen(QString start);
-    void getDestino(QString end);
 
     /**
      * @brief solicita una consulta get las coordenadas de una direccion
@@ -106,11 +97,6 @@ private slots:
      */
     void slot_getMap(QNetworkReply *reply);
 
-    void slot_getTiempo(QNetworkReply *reply);
-    void slot_getDistancia(QNetworkReply *reply);
-    void slot_getOrigen(QNetworkReply *reply);
-    void slot_getDestino(QNetworkReply *reply);
-
 signals:
     /**
      * @brief devuelve un QList<QString> con las dos coordenadas asociadas a la direccion
@@ -136,9 +122,4 @@ signals:
      * @brief devuelve una Imagen de un mapa con una ruta trazada.
      */
     void receivedMap(QImage);
-
-    //void signalTiempo(QString, QString);
-    //void signalDistancia(QString, QString);
-    void signalOrigen(QString, QString);
-    void signalDestino(QString, QString);
 };

@@ -1,6 +1,4 @@
-#ifndef WIDGET_H
-#define WIDGET_H
-
+#pragma once
 #include "datamanager.h"
 #include "posmanager.h"
 #include "mapa.h"
@@ -27,7 +25,6 @@ private:
     PosManager *gpsManager;
     void paintEvent(QPaintEvent *e);
 
-
 private slots:
     void slot_apretoDireccion();
     void slot_apretoGps();
@@ -38,5 +35,3 @@ private slots:
     void slot_apretoMapa();
     void slot_itemClickeado(QListWidgetItem *item);
 };
-
-#endif // WIDGET_H

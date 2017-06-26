@@ -4,7 +4,6 @@
 Widget::Widget(QWidget *parent) :    QWidget(parent),    ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
     mapa=NULL;
 
     this->manager = new DataManager();
@@ -13,7 +12,6 @@ Widget::Widget(QWidget *parent) :    QWidget(parent),    ui(new Ui::Widget)
     imagen.load(":/park1.png");
     this->setWindowTitle("Parking");
     setWindowIcon(QIcon(":/park2.png"));
-    //this->setFixedSize(300,533);
 
     connect(this->ui->pbMapa, SIGNAL(clicked()), this, SLOT(slot_apretoMapa()));
     connect(this->ui->pbDireccion, SIGNAL(clicked()), this, SLOT(slot_apretoDireccion()));

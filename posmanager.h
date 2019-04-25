@@ -1,11 +1,10 @@
-#ifndef POSMANAGER_H
-#define POSMANAGER_H
-
+#pragma once
 #include <QWidget>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QGeoPositionInfoSource>
+#include <QTimer>
 
 class PosManager : public QObject
 {
@@ -87,4 +86,3 @@ private slots:
      void positionUpdated(const QGeoPositionInfo &info);
 
 };
-#endif // POSMANAGER_H

@@ -3,17 +3,13 @@
 
 DataManager::DataManager()
 {
-    managerCoordinates = new QNetworkAccessManager();
-    managerSites = new QNetworkAccessManager();
-    managerDestino = new QNetworkAccessManager();
-    managerOrigen = new QNetworkAccessManager();
-    managerRoutes = new QNetworkAccessManager();
-    managerMap = new QNetworkAccessManager();
+    managerCoordinates = new QNetworkAccessManager(this);
+    managerSites = new QNetworkAccessManager(this);
+    managerRoutes = new QNetworkAccessManager(this);
+    managerMap = new QNetworkAccessManager(this);
 
     connect(managerSites,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getSites(QNetworkReply *)));
     connect(managerCoordinates,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getCoordinates(QNetworkReply *)));
-    connect(managerOrigen,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getOrigen(QNetworkReply *)));
-    connect(managerDestino,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getDestino(QNetworkReply *)));
     connect(managerRoutes,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getRoutes(QNetworkReply*)));
     connect(managerMap,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_getMap(QNetworkReply*)));
 }
@@ -28,6 +24,7 @@ void DataManager::getCoordinates(QString street)
 
     base += street;
     base += "&key=AIzaSyCnRcVd391QIPAa7i7tkfHrpP-BuehQ5FE";
+
 
     managerCoordinates->get(QNetworkRequest(QUrl(base)));
 }

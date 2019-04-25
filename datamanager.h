@@ -59,7 +59,7 @@ public:
     void getMap(QList<QString> coords);
 
 private:
-    QNetworkAccessManager *managerCoordinates, *managerSites, *managerDestino, *managerOrigen, *managerRoutes, *managerMap;
+    QNetworkAccessManager *managerCoordinates, *managerSites, *managerRoutes, *managerMap;
 
 public:
     double lat, lng;

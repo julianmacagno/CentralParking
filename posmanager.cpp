@@ -1,31 +1,25 @@
 #include "posmanager.h"
-#include <QGeoPositionInfoSource>
-#include <QTimer>
+
 PosManager::PosManager(QObject *parent) : QObject(parent)
 {
-    //Esta es la parte del gps que obtiene las coordenadas que indica el gps de el celular
     QGeoPositionInfoSource *source = QGeoPositionInfoSource::createDefaultSource(this);
     if (source) {
-        connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)),
-                this, SLOT(positionUpdated(QGeoPositionInfo)));
+        connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)), this, SLOT(positionUpdated(QGeoPositionInfo)));
         source->startUpdates();
     }
-    qDebug()<<"Actualizar posicion GPS !"<<endl;
-
-    qDebug()<<"Latitud: "<<alt;
-    qDebug()<<"Longuitud"<<lon;
 
     manager = new QNetworkAccessManager;
     manager1 = new QNetworkAccessManager;
 
     connect(manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_solicitudFinalizada(QNetworkReply *)));
     connect(manager1,SIGNAL(finished(QNetworkReply*)),this,SLOT(slot_solicitudLatLongFinalizada(QNetworkReply *)));
-    qDebug()<<"<<<Constructor clase PosManager>>>"<<endl;
+
+    qDebug()<<"Latitud: "<<alt;
+    qDebug()<<"Longuitud"<<lon;
 }
 
 PosManager::~PosManager()
 {
-    qDebug()<<"SE INVOCO AL DESTRUCTOR";
 }
 
 void PosManager::slot_solicitudFinalizada(QNetworkReply *reply)
@@ -115,10 +109,8 @@ void PosManager::pedirLatitudLonguitud(QString dom)
 QStringList PosManager::getLatLongGPS()
 {
       QStringList cord;
-      QString a = QString::number(alt);
-      QString b = QString::number(lon);
-      cord << a << b;
-      qDebug() << cord;
+      cord << QString::number(alt);
+      cord << QString::number(lon);
       return cord;
 }
 

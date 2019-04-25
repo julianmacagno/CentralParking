@@ -64,7 +64,7 @@ void Widget::slot_recibirSitios(QList<DataManager::Sitio> l)
         QListWidgetItem *a = new QListWidgetItem;
         a->setData(100,l.at(i).lat);
         a->setData(101,l.at(i).lng);
-        a->setText(l.at(i).nombre + "\n" + "Puntuacion: " + l.at(i).rating + "\n");
+        a->setText(l.at(i).nombre + "\n" + "Puntuacion: " + l.at(i).rating + "\n\n");
 
         ui->lista->addItem(a);
     }
